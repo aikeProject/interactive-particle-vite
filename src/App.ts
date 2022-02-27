@@ -14,11 +14,26 @@ class App {
 
     init() {
         this.initWebGL();
+        this.animate();
     }
 
     initWebGL() {
-        this.webgl = new WebGLView(this);
+        this.webgl = new WebGLView();
         document.querySelector('.container')?.appendChild(this.webgl.renderer.domElement);
+    }
+
+    animate() {
+        this.update();
+        this.draw();
+        requestAnimationFrame(this.animate.bind(this));
+    }
+
+    update() {
+        if (this.webgl) this.webgl.update();
+    }
+
+    draw() {
+        if (this.webgl) this.webgl.draw();
     }
 }
 
