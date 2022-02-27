@@ -9,11 +9,11 @@ import WebGLView from '../WebGlView';
 
 class Particles {
     public texture?: Texture;
+    public width?: number;
+    public height?: number;
 
     private webgl: WebGLView;
-    private width?: number;
-    private height?: number;
-    
+
     constructor(webgl: WebGLView) {
         this.webgl = webgl;
     }

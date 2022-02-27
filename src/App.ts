@@ -14,12 +14,17 @@ class App {
 
     init() {
         this.initWebGL();
+        this.addListeners();
         this.animate();
     }
 
     initWebGL() {
         this.webgl = new WebGLView();
         document.querySelector('.container')?.appendChild(this.webgl.renderer.domElement);
+    }
+
+    addListeners() {
+        window.addEventListener('resize', this.resize.bind(this));
     }
 
     animate() {
@@ -34,6 +39,10 @@ class App {
 
     draw() {
         if (this.webgl) this.webgl.draw();
+    }
+
+    resize() {
+        if (this.webgl) this.webgl.resize();
     }
 }
 

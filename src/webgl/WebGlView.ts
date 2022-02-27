@@ -13,10 +13,12 @@ class WebGLView {
     renderer!: WebGLRenderer;
     clock!: Clock;
     particles!: Particles;
+    private fovHeight?: number;
 
     constructor() {
         this.initThree();
-        this.initParticles();
+        void this.initParticles();
+        this.resize();
     }
 
     /**
@@ -27,6 +29,7 @@ class WebGLView {
         this.scene = new Scene();
 
         // camera
+        // PerspectiveCamera透视摄像机
         this.camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 10000);
         this.camera.position.z = 300;
 
@@ -51,7 +54,7 @@ class WebGLView {
         });
 
         // plane
-        const plane = new Mesh(new PlaneGeometry(200, 200), img);
+        const plane = new Mesh(new PlaneGeometry(this.particles.width, this.particles.height), img);
         this.scene.add(plane);
     }
 
@@ -61,6 +64,17 @@ class WebGLView {
 
     update() {
         // nothing
+    }
+
+    resize() {
+        if (!this.renderer) return;
+        this.camera.aspect = window.innerWidth / window.innerHeight;
+        // 属性变化之后，调用updateProjectionMatrix使其生效
+        this.camera.updateProjectionMatrix();
+
+        this.fovHeight = 2 * Math.tan((this.camera.fov * Math.PI) / 180 / 2) * this.camera.position.z;
+
+        this.renderer.setSize(window.innerWidth, window.innerHeight);
     }
 }
 
