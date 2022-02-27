@@ -3,7 +3,7 @@
  * @date 2022/2/27
  * @Description:
  */
-import WebGLView from "./webgl/WebGlView";
+import WebGLView from './webgl/WebGlView';
 
 class App {
     private webgl!: WebGLView;
