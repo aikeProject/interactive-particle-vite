@@ -47,15 +47,15 @@ class WebGLView {
      */
     async initParticles() {
         this.particles = new Particles(this);
-        await this.particles.init('images/sample-01.png');
-
-        const img = new MeshBasicMaterial({
-            map: this.particles.texture
-        });
-
-        // plane
-        const plane = new Mesh(new PlaneGeometry(this.particles.width, this.particles.height), img);
-        this.scene.add(plane);
+        await this.particles.init('images/sample-04.png');
+        //
+        // const img = new MeshBasicMaterial({
+        //     map: this.particles.texture
+        // });
+        //
+        // // plane
+        // const plane = new Mesh(new PlaneGeometry(this.particles.width, this.particles.height), img);
+        this.scene.add(this.particles.container);
     }
 
     draw() {
@@ -63,7 +63,9 @@ class WebGLView {
     }
 
     update() {
-        // nothing
+        const delta = this.clock.getDelta();
+
+        if (this.particles) this.particles.update(delta);
     }
 
     resize() {
