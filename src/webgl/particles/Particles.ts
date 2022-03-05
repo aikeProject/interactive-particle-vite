@@ -1,3 +1,9 @@
+/**
+ * @author 成雨
+ * @date 2022/2/27
+ * @Description:
+ */
+
 import {
     Mesh,
     Object3D,
@@ -17,14 +23,8 @@ import {
 import { TweenLite } from 'gsap/TweenMax';
 import WebGLView from '../WebGlView';
 import TouchTexture from './TouchTexture';
-import particleVert from '../../shaders/particle.vert';
-import particleFrag from '../../shaders/particle.frag';
-
-/**
- * @author 成雨
- * @date 2022/2/27
- * @Description:
- */
+import particleVert from '../../shaders/particle.vert?raw';
+import particleFrag from '../../shaders/particle.frag?raw';
 
 class Particles {
     public texture?: Texture;
@@ -158,9 +158,7 @@ class Particles {
             j++;
         }
 
-        console.log('indices', indices);
         geometry.setAttribute('pindex', new InstancedBufferAttribute(indices, 1, false));
-        console.log('offsets', offsets);
         geometry.setAttribute('offset', new InstancedBufferAttribute(offsets, 3, false));
         geometry.setAttribute('angle', new InstancedBufferAttribute(angles, 1, false));
 
