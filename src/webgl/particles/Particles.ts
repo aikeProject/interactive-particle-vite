@@ -48,8 +48,8 @@ class Particles {
         const loader =  new TextureLoader();
         this.texture = await loader.loadAsync(src);
 
-        // this.texture.minFilter = LinearFilter;
-        // this.texture.magFilter = LinearFilter;
+        this.texture.minFilter = LinearFilter;
+        this.texture.magFilter = LinearFilter;
         // this.texture.format = RGBFormat;
 
         this.width = this.texture.image.width;
@@ -84,11 +84,14 @@ class Particles {
                 ctx.drawImage(img, 0, 0, this.width, this.height * -1);
 
                 // document.querySelector('#particle')?.append(canvas);
-
+                // 像素数据
+                // https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Pixel_manipulation_with_canvas
                 const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                // imgData.data 每个像素点的rgba值
                 originalColors = Float32Array.from(imgData.data);
 
                 for (let i = 0; i < this.numPoints; i++) {
+                    // 只显示"rgba"中"r"大于threshold的像素点
                     if (originalColors[i * 4] > threshold) numVisible++;
                 }
             }
