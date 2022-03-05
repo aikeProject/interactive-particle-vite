@@ -8,6 +8,7 @@ import Index from '../pages/index/index.vue';
 
 const routes = [
     { path: '/', component: Index },
+    { path: '/webgl-buffer-geometry-indexed', component: () => import('../pages/webgl-buffer-geometry-indexed/index.vue') },
 ]
 
 const router = createRouter({

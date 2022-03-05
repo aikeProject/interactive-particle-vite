@@ -139,13 +139,16 @@ class Particles {
         geometry.setIndex(new BufferAttribute(new Uint16Array([ 0, 2, 1, 2, 3, 1 ]), 1));
 
         const indices = new Uint16Array(numVisible);
+        // 计算出偏移量
         const offsets = new Float32Array(numVisible * 3);
         const angles = new Float32Array(numVisible);
 
         for (let i = 0, j = 0; i < this.numPoints; i++) {
             if (discard && originalColors && originalColors[i * 4] <= threshold) continue;
 
+            // 求余 算出 x 值
             offsets[j * 3] = i % this.width;
+            // 计算出 y 值
             offsets[j * 3 + 1] = Math.floor(i / this.width);
 
             indices[j] = i;
@@ -155,7 +158,9 @@ class Particles {
             j++;
         }
 
+        console.log('indices', indices);
         geometry.setAttribute('pindex', new InstancedBufferAttribute(indices, 1, false));
+        console.log('offsets', offsets);
         geometry.setAttribute('offset', new InstancedBufferAttribute(offsets, 3, false));
         geometry.setAttribute('angle', new InstancedBufferAttribute(angles, 1, false));
 
